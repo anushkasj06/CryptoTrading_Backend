@@ -28,8 +28,6 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-
-
     @PostMapping("/api/payment/{paymentMethod}/amount/{amount}")
     public ResponseEntity<PaymentResponse> paymentHandler(
             @PathVariable PaymentMethod paymentMethod,
@@ -40,18 +38,12 @@ public class PaymentController {
 
         PaymentResponse paymentResponse;
 
-        PaymentOrder order= paymentService.createOrder(user, amount,paymentMethod);
+        PaymentOrder order = paymentService.createOrder(user, amount, paymentMethod);
 
-        if(paymentMethod.equals(PaymentMethod.RAZORPAY)){
-            paymentResponse=paymentService.createRazorpayPaymentLink(user,amount,
-                    order.getId());
-        }
-        else{
-            paymentResponse=paymentService.createStripePaymentLink(user,amount, order.getId());
-        }
+        paymentResponse = paymentService.createRazorpayPaymentLink(user, amount,
+                order.getId());
 
         return new ResponseEntity<>(paymentResponse, HttpStatus.CREATED);
     }
-
 
 }
