@@ -12,7 +12,12 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         // The endpoint React will use to connect
-        registry.addEndpoint("/ws-community").setAllowedOrigins("http://localhost:5173").withSockJS();
+        registry.addEndpoint("/ws-community")
+                .setAllowedOrigins(
+                        "http://localhost:5173",
+                        "https://crypto-trading-frontend-new.vercel.app")
+                .withSockJS();
+
     }
 
     @Override

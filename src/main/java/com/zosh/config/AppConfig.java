@@ -40,8 +40,7 @@ public class AppConfig {
 
                         // 3. Keep your previous logic: allow all other requests
                         // (Change this to .authenticated() later if you want to lock the whole app)
-                        .anyRequest().permitAll()
-                )
+                        .anyRequest().permitAll())
                 .csrf(AbstractHttpConfigurer::disable)
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
@@ -55,8 +54,11 @@ public class AppConfig {
             public CorsConfiguration getCorsConfiguration(HttpServletRequest request) {
                 CorsConfiguration cfg = new CorsConfiguration();
                 cfg.setAllowedOrigins(Arrays.asList(
-                        "http://localhost:3000", "http://localhost:5173", "http://localhost:4200"
-                ));
+                        "http://localhost:3000",
+                        "http://localhost:5173",
+                        "http://localhost:4200",
+                        "https://crypto-trading-frontend-new.vercel.app"));
+
                 cfg.setAllowedMethods(Collections.singletonList("*"));
                 cfg.setAllowCredentials(true);
                 cfg.setAllowedHeaders(Collections.singletonList("*"));
