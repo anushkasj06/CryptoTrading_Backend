@@ -20,6 +20,6 @@ public interface PaymentService {
                                               Long Amount,
                                               Long orderId) throws RazorpayException;
 
-    PaymentResponse createStripePaymentLink(User user, Long Amount,
-                                            Long orderId) throws StripeException;
+    //PaymentResponse createStripePaymentLink(User user, Long Amount,
+                                            //Long orderId) throws StripeException;
 }

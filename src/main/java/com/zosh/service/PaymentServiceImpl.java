@@ -26,8 +26,8 @@ import java.util.Optional;
 @Service
 public class PaymentServiceImpl implements PaymentService{
 
-    @Value("${stripe.api.key}")
-    private String stripeSecretKey;
+//    @Value("${stripe.api.key}")
+//    private String stripeSecretKey;
 
     @Value("${razorpay.api.key}")
     private String apiKey;
@@ -141,38 +141,38 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
-    @Override
-    public PaymentResponse createStripePaymentLink(User user, Long amount,Long orderId) throws StripeException {
-        Stripe.apiKey = stripeSecretKey;
-
-        SessionCreateParams params = SessionCreateParams.builder()
-                .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-                .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:5173/wallet?order_id="+orderId)
-                .setCancelUrl("http://localhost:5173/payment/cancel")
-                .addLineItem(SessionCreateParams.LineItem.builder()
-                        .setQuantity(1L)
-                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
-                                .setCurrency("usd")
-                                .setUnitAmount(amount*100)
-                                .setProductData(SessionCreateParams
-                                        .LineItem
-                                        .PriceData
-                                        .ProductData
-                                        .builder()
-                                        .setName("Top up wallet")
-                                        .build()
-                                ).build()
-                        ).build()
-                ).build();
-
-        Session session = Session.create(params);
-
-        System.out.println("session _____ " + session);
-
-        PaymentResponse res = new PaymentResponse();
-        res.setPayment_url(session.getUrl());
-
-        return res;
-    }
+//    @Override
+//    public PaymentResponse createStripePaymentLink(User user, Long amount,Long orderId) throws StripeException {
+//        Stripe.apiKey = stripeSecretKey;
+//
+//        SessionCreateParams params = SessionCreateParams.builder()
+//                .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
+//                .setMode(SessionCreateParams.Mode.PAYMENT)
+//                .setSuccessUrl("http://localhost:5173/wallet?order_id="+orderId)
+//                .setCancelUrl("http://localhost:5173/payment/cancel")
+//                .addLineItem(SessionCreateParams.LineItem.builder()
+//                        .setQuantity(1L)
+//                        .setPriceData(SessionCreateParams.LineItem.PriceData.builder()
+//                                .setCurrency("usd")
+//                                .setUnitAmount(amount*100)
+//                                .setProductData(SessionCreateParams
+//                                        .LineItem
+//                                        .PriceData
+//                                        .ProductData
+//                                        .builder()
+//                                        .setName("Top up wallet")
+//                                        .build()
+//                                ).build()
+//                        ).build()
+//                ).build();
+//
+//        Session session = Session.create(params);
+//
+//        System.out.println("session _____ " + session);
+//
+//        PaymentResponse res = new PaymentResponse();
+//        res.setPayment_url(session.getUrl());
+//
+//        return res;
+//    }
 }
